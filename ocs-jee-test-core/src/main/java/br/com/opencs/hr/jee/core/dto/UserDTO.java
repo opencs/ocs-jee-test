@@ -29,65 +29,29 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.opencs.hr.jee.db.entities;
+package br.com.opencs.hr.jee.core.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
-
 /**
- * This class implements the user entity of this JPA unit.
+ * This class is the DTO of the User.
  * 
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @since 2019.02.24
+ * @version 2019.02.24
  */
-@Entity
-@Cacheable(true)
-@Table(name="users_")
-@NamedQueries({
-		@NamedQuery(name=UserEntity.LIST_ALL_QUERY, query="select u from UserEntity u"),
-		@NamedQuery(name=UserEntity.FIND_BY_EMAIL_QUERY, query="select u from UserEntity u where u.email=:email"),
-		@NamedQuery(name=UserEntity.EMAIL_USED_QUERY, query="select count(u) from UserEntity u where u.email=:email"),
-})
-public class UserEntity {
-	
-	public static final String LIST_ALL_QUERY = "br.com.opencs.hr.jee.db.entities.UserEntity.LIST_ALL_QUERY";
-	public static final String FIND_BY_EMAIL_QUERY = "br.com.opencs.hr.jee.db.entities.UserEntity.FIND_BY_EMAIL_QUERY";
-	public static final String EMAIL_USED_QUERY  = "br.com.opencs.hr.jee.db.entities.UserEntity.EMAIL_USED_QUERY";
-	
-	@Id
-	@TableGenerator(name="USERID_GEN", table="generators", 
-		pkColumnName="name", valueColumnName="value", pkColumnValue="USERID", 
-		initialValue=1, allocationSize=15)
-	@GeneratedValue(generator="USERID_GEN", strategy=GenerationType.TABLE)
-	@Column(name="userid", nullable=false, updatable=false)
+public class UserDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private long userId;
 	
-	@Column(name="email", nullable=false, unique=true, length=128, updatable=true)
 	private String email;
 	
-	@Column(name="name", nullable=false, unique=false, length=256, updatable=true)
 	private String name;
 	
-	@Column(name="creationdate", updatable=false)
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@Version
-	@Column(name="updatedate")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 
 	public long getUserId() {

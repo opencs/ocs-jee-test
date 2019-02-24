@@ -32,10 +32,14 @@
 package br.com.opencs.hr.jee.db.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class UserEntityTest extends BaseEntityTest {
 	
@@ -63,25 +67,68 @@ public class UserEntityTest extends BaseEntityTest {
 
 	@Test
 	public void testInsert() {
-	
+		UserEntity user1;
+		UserEntity user2;
+		
 		em.getTransaction().begin();
-		UserEntity user = new UserEntity();
-		user.setCreationDate(new Date());
-		user.setEmail("email" +  nextSequence());
-		user.setName("name" +  nextSequence());
-		em.persist(user);
-		System.out.println(user.getUserId());
+		user1 = new UserEntity();
+		user1.setCreationDate(new Date());
+		user1.setEmail("email" +  nextSequence());
+		user1.setName("name" +  nextSequence());
+		em.persist(user1);
 		em.getTransaction().commit();
+
+		em.getTransaction().begin();
+		user2 = new UserEntity();
+		user2.setCreationDate(new Date());
+		user2.setEmail(user1.getEmail());
+		user2.setName("name" +  nextSequence());
+		em.persist(user2);
+		try {
+			em.getTransaction().commit();
+			fail();
+		} catch (Exception e) {}
 	}
 	
 	@Test
 	public void testQueryByEmail() {
-	
-		loadSample();
-
+		TypedQuery<UserEntity> query;
+		UserEntity entity;
 		
+		loadSample();
+		
+		em.getTransaction().begin();
+		query = em.createNamedQuery(UserEntity.FIND_BY_EMAIL_QUERY, UserEntity.class);
+		query.setParameter("email", "email1");
+		entity = query.getSingleResult();
+		assertNotNull(entity);
+		assertEquals("email1", entity.getEmail());
+		em.getTransaction().commit();
+	
+		em.getTransaction().begin();
+		query = em.createNamedQuery(UserEntity.FIND_BY_EMAIL_QUERY, UserEntity.class);
+		query.setParameter("email", "email12313");
+		try {
+			entity = query.getSingleResult();
+			fail();
+		} catch (NoResultException e) {}
+		em.getTransaction().commit();
+	}
 	
 	
+	@Test
+	public void testListAll() {
+		TypedQuery<UserEntity> query;
+		List<UserEntity> entities;
+		
+		loadSample();
+		
+		em.getTransaction().begin();
+		query = em.createNamedQuery(UserEntity.LIST_ALL_QUERY, UserEntity.class);
+		entities = query.getResultList();
+		assertNotNull(entities);
+		assertEquals(10, entities.size());
+		em.getTransaction().commit();
 	}
 
 }

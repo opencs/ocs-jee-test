@@ -10,10 +10,12 @@ and fixed during the test.
 
 ## Development environment
 
-This project was written using [**Eclipse IDE for Enterprise Java Developers**](https://www.eclipse.org), a Java 8 JDK and [**TomEE Plume 7.1.x**](http://tomee.apache.org) as
-the application server.
+This project was written using [**Eclipse IDE for Enterprise Java Developers**](https://www.eclipse.org),
+a Java 8 JDK and [**TomEE Plume 7.1.x**](http://tomee.apache.org) as
+the application server and [Apache Derby](https://db.apache.org/derby/) as its database.
 
-The workspace must be created by importing all projects inside the repository.
+Just install all dependencies, import all projects inside the repository to the workspace and deploy the **war** 
+file create by the project  **ocs-jee-test-web**.
 
 ## How to build
 

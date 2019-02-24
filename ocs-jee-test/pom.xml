@@ -24,5 +24,8 @@
 	</dependencies>
 	<modules>
 		<module>${source.dir}/ocs-jee-test-db-core/pom.xml</module>
+		<module>${source.dir}/ocs-jee-test-db/pom.xml</module>
+		<module>${source.dir}/ocs-jee-test-core/pom.xml</module>
+		<module>${source.dir}/ocs-jee-test-web/pom.xml</module>
 	</modules>
 </project>

@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="ocs-jee-test" transaction-type="JTA">
-		<jta-data-source>ocs-jee-test</jta-data-source>
+		<jta-data-source>ocs-jee-test-ds</jta-data-source>
 		<class>br.com.opencs.hr.jee.db.entities.UserEntity</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>			
 		<properties>
