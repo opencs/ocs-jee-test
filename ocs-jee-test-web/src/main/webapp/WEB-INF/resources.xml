@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<Resource id="aslwrds" type="DataSource">
+		JdbcDriver	org.apache.derby.jdbc.EmbeddedDriver
+		JdbcUrl		jdbc:derby:ocs-jee-test.db;create=true
+		UserName	ocsjeetest
+		Password	password
+		JtaManaged	true
+	</Resource>
+</resources>

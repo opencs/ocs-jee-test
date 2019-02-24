@@ -53,11 +53,11 @@ import javax.persistence.Version;
  * @author Fabio Jun Takada Chino (fchino at opencs.com.br)
  * @since 2019.02.24
  */
-@Entity(name="")
+@Entity
 @Cacheable(true)
 @Table(name="users_")
 @NamedQueries(
-		@NamedQuery(name=UserEntity.FIND_BY_EMAIL, query="select u from UserEntity u where u.email=")
+		@NamedQuery(name=UserEntity.FIND_BY_EMAIL, query="select u from UserEntity u where u.email=:email")
 )
 public class UserEntity {
 	

@@ -49,6 +49,7 @@ public class UserEntityTest extends BaseEntityTest {
 	
 	public void loadSample() {
 		
+		deleteAll();
 		em.getTransaction().begin();
 		for (int i = 0; i < 10; i++) {
 			UserEntity user = new UserEntity();
@@ -60,15 +61,14 @@ public class UserEntityTest extends BaseEntityTest {
 		em.getTransaction().commit();
 	}
 
-
 	@Test
 	public void testInsert() {
 	
 		em.getTransaction().begin();
 		UserEntity user = new UserEntity();
 		user.setCreationDate(new Date());
-		user.setEmail("email" + System.nanoTime());
-		user.setName("name");
+		user.setEmail("email" +  nextSequence());
+		user.setName("name" +  nextSequence());
 		em.persist(user);
 		System.out.println(user.getUserId());
 		em.getTransaction().commit();

@@ -40,6 +40,13 @@ import org.junit.BeforeClass;
 public abstract class BaseEntityTest {
 	
 	protected EntityManager em;
+	
+	private long sequence =  System.nanoTime();
+	
+	protected synchronized long nextSequence() {
+		sequence++;
+		return sequence;
+	}
 
 	@BeforeClass
 	public static void beforeClass() {
