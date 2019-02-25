@@ -8,6 +8,8 @@ TODO
 As a test of skills, this project contains some errors that are expected to be found
 and fixed during the test.
 
+Please checkout locally and send a zip with the patch as your submission for the test, to permit individual evaluation.
+
 ## Development environment
 
 This project was written using [**Eclipse IDE for Enterprise Java Developers**](https://www.eclipse.org),
