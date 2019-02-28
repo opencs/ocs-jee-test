@@ -46,11 +46,34 @@ import br.com.opencs.hr.jee.core.dto.UserDTO;
 @Local
 public interface UserService {
 
+	/**
+	 * Finds the user by his/her email.
+	 * @param email The email.
+	 * @return The user found or null if the user does not exist.
+	 */
 	public UserDTO findUserByEmail(String email);
 	
-	public void addUser(UserDTO user);
+	/**
+	 * Adds a new user.
+	 * 
+	 * @param user The user data to be added.
+	 * @exception ServiceException If the user could not be added.
+	 */
+	public void addUser(UserDTO user) throws ServiceException;
 	
+	/**
+	 * Lists all users inside the database.
+	 * 
+	 * @return A list of all users inside the database.
+	 */
 	public List<UserDTO> listUsers();
 	
-	public void updateUser(UserDTO user, UserDTO newUserValues);
+	/**
+	 * Updates a given user.
+	 * 
+	 * @param user The user to be updated.
+	 * @param newUserValues The new user data.
+	 * throws ServiceException If the user cannot be updated.
+	 */
+	public void updateUser(UserDTO user, UserDTO newUserValues) throws ServiceException;
 }

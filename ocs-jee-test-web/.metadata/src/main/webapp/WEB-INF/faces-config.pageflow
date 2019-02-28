@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15513129262070" configfile="/ocs-jee-test-web/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf15513140545541" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15513142570993" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="add-user.xhtml" x="122" y="562" id="pf15513140545542" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15513144217445" path="/add-user.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="add-user.xtml" x="360" y="111" id="pf15513142570994" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15513142570993" path="add-user.xtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xtml" x="338" y="562" id="pf15513144217446" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15513144217445" path="/index.xtml"/>
+  <links id="pf15513142570993" target="pf15513142570994" source="pf15513140545541" outcome="add-user"/>
+  <links id="pf15513144217445" target="pf15513144217446" source="pf15513140545542" outcome="back"/>
+</pageflow:Pageflow>

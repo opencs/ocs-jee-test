@@ -23,4 +23,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<name>ocs-jee-test-core</name>
+	<description>This library contains the implementation of all business objects inside this project.</description>
 </project>

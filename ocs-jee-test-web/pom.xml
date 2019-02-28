@@ -31,4 +31,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<name>ocs-jee-test-web</name>
+	<description>This is the web application implementation. All web interfaces and UI implementation is implemented here.</description>
 </project>

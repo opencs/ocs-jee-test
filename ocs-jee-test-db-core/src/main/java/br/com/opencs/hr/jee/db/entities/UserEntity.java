@@ -31,6 +31,7 @@
  */
 package br.com.opencs.hr.jee.db.entities;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Cacheable;
@@ -85,10 +86,13 @@ public class UserEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@Version
 	@Column(name="updatedate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
+	
+	@Version
+	@Column(name="version", nullable=false, unique=false)
+	private long version;
 
 	public long getUserId() {
 		return userId;
@@ -128,5 +132,13 @@ public class UserEntity {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

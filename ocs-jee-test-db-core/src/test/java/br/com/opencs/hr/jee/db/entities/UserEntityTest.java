@@ -45,6 +45,7 @@ public class UserEntityTest extends BaseEntityTest {
 	
 	public void deleteAll() {
 		
+		logger.info("Deleting all entries inside the table user_.");
 		em.getTransaction().begin();
 		Query query = em.createQuery("delete from UserEntity");
 		query.executeUpdate();
@@ -63,6 +64,7 @@ public class UserEntityTest extends BaseEntityTest {
 			em.persist(user);
 		}
 		em.getTransaction().commit();
+		logger.info("Table user_ populated with sample data.");
 	}
 
 	@Test

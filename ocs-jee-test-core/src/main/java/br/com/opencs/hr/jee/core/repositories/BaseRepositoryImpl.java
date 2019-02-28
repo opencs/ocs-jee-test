@@ -31,11 +31,12 @@
  */
 package br.com.opencs.hr.jee.core.repositories;
 
-import java.util.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseRepositoryImpl<EntityClass, KeyClass> implements BaseRepository<EntityClass, KeyClass> {
 	
@@ -48,10 +49,10 @@ public class BaseRepositoryImpl<EntityClass, KeyClass> implements BaseRepository
 	@PersistenceContext(name="ocs-jee-test")
 	protected EntityManager em;
 	
-	protected BaseRepositoryImpl(Class<EntityClass> entityClass, Class<KeyClass> keyClass, Logger logger) {
+	protected BaseRepositoryImpl(Class<EntityClass> entityClass, Class<KeyClass> keyClass) {
 		this.entityClass = entityClass;
 		this.keyClass = keyClass;
-		this.logger = logger;
+		this.logger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	@Override

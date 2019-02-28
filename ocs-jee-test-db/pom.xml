@@ -9,6 +9,8 @@
 		<relativePath>../ocs-jee-test/pom.xml</relativePath>
 	</parent>
 	<artifactId>ocs-jee-test-db</artifactId>
+	<name>ocs-jee-test-db</name>
+	<description>This is project holds the JPA Unit definition. The actual classes are implemented inside ocs-jee-test-db-core.</description>
 
 	<dependencies>
 		<dependency>

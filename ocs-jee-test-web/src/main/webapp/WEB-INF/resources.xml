@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<Resource id="aslwrds" type="DataSource">
+	<Resource id="ocs-jee-test" type="DataSource">
 		JdbcDriver	org.apache.derby.jdbc.EmbeddedDriver
 		JdbcUrl		jdbc:derby:ocs-jee-test.db;create=true
 		UserName	ocsjeetest

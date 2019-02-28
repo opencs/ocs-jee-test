@@ -31,25 +31,31 @@
  */
 package br.com.opencs.hr.jee.core.services;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.opencs.hr.jee.core.dto.UserDTO;
 import br.com.opencs.hr.jee.core.repositories.UserRepository;
+import br.com.opencs.hr.jee.core.services.interfaces.ServiceError;
+import br.com.opencs.hr.jee.core.services.interfaces.ServiceException;
 import br.com.opencs.hr.jee.core.services.interfaces.UserService;
+import br.com.opencs.hr.jee.core.validators.UserValidator;
 import br.com.opencs.hr.jee.db.entities.UserEntity;
 
 @Stateless
 public class UserServiceImpl implements UserService {
 
-	private static final Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	@EJB
 	private UserRepository userRepository;
-	
 	
 	private UserDTO entityToDTO(UserEntity userEntity) {
 		UserDTO dto = new UserDTO();
@@ -62,29 +68,58 @@ public class UserServiceImpl implements UserService {
 		return dto;
 	}
 	
+	@Override
 	public UserDTO findUserByEmail(String email) {
 		
 		UserEntity userEntity = userRepository.findByEmail(email);
 		if (userEntity == null) {
+			logger.info("User with email %1$s not found.", email);
 			return null;
 		} else {
 			return entityToDTO(userEntity);
 		}
 	}
-	
-	public void addUser(UserDTO user) {
+
+	@Override
+	public void addUser(UserDTO user) throws ServiceException {
 		
 		// Check user entity
+		if (!UserValidator.isValidName(user.getName()))  {
+			throw new ServiceException(ServiceError.USER_INVALID_NAME);
+		}
+		if (!UserValidator.isValidEMail(user.getEmail()))  {
+			throw new ServiceException(ServiceError.USER_INVALID_EMAIL);
+		}
 		
-		
+		// Look for duplicates
+		UserEntity userEntity;
+		userEntity = userRepository.findByEmail(user.getEmail());
+		if (userEntity != null) {
+			logger.info("Email %1$s already used.", user.getEmail());
+			throw new ServiceException(ServiceError.USER_EMAIL_ALREADY_USED);
+		} else {
+			userEntity = new UserEntity();
+			userEntity.setName(user.getName());
+			userEntity.setEmail(user.getEmail());
+			userEntity.setCreationDate(new Date());
+			userEntity.setUpdateDate(new Date());
+			userRepository.persist(userEntity);
+			logger.info("User %1$s with email %2$s added with ID %3%d.", userEntity.getName(),
+					userEntity.getEmail(), userEntity.getUserId());
+		}
 	}
 	
-	
+	@Override
 	public List<UserDTO> listUsers() {
-		return null;
+		ArrayList<UserDTO> users = new ArrayList<UserDTO>();
+	
+		for (UserEntity userEntity: userRepository.listAll()) {
+			users.add(entityToDTO(userEntity));
+		}
+		return users;
 	}
 	
 	public void updateUser(UserDTO user, UserDTO newUserValues) {
-		
+		throw new UnsupportedOperationException();
 	}
 }

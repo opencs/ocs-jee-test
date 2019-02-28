@@ -9,6 +9,8 @@
 		<relativePath>../ocs-jee-test/pom.xml</relativePath>
 	</parent>
 	<artifactId>ocs-jee-test-db-core</artifactId>
+	<name>ocs-jee-test-db-core</name>
+	<description>This is project holds the JPA entity implementation and their unit tests.</description>
 	
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.apache.openjpa/openjpa-all -->

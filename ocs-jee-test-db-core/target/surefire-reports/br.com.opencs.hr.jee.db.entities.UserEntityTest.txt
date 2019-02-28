@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.opencs.hr.jee.db.entities.UserEntityTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.305 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.568 sec

@@ -36,28 +36,62 @@ import javax.persistence.EntityManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * This is the base class for all entity unit tests.
+ * 
+ * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
+ * @version 2019.02.24
+ */
 public abstract class BaseEntityTest {
 	
+	protected final Logger logger;
+	
+	/**
+	 * The entity manager.
+	 */
 	protected EntityManager em;
 	
+	/**
+	 * The value used to generate unique sequential numbers.
+	 */
 	private long sequence =  System.nanoTime();
 	
+	protected BaseEntityTest() {
+		this.logger = LoggerFactory.getLogger(this.getClass());
+	}
+	
+	/**
+	 * Generates a unique long for each call.
+	 * 
+	 * @return The next long.
+	 */
 	protected synchronized long nextSequence() {
 		sequence++;
 		return sequence;
 	}
 
+	/**
+	 * Verifies if the test must be executed.
+	 */
 	@BeforeClass
 	public static void beforeClass() {
 		org.junit.Assume.assumeTrue(DBStub.shoudRun());
 	}
 	
+	/**
+	 * Acquires an entity manager for each test.
+	 */
 	@Before
 	public void before() {
 		em = DBStub.getEntityManager();
 	}
 	
+	/**
+	 * Disposes the entity manager used by the tests.
+	 */
 	@After
 	public void after() {
 		if (em != null) {

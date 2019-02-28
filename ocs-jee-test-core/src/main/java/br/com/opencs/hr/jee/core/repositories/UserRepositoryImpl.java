@@ -44,7 +44,7 @@ import br.com.opencs.hr.jee.db.entities.UserEntity;
 public class UserRepositoryImpl extends BaseRepositoryImpl<UserEntity, Long> implements UserRepository{
 
 	public UserRepositoryImpl() {
-		super(UserEntity.class, Long.class, Logger.getLogger(UserRepositoryImpl.class.getName()));
+		super(UserEntity.class, Long.class);
 	}
 	
 	public UserEntity findByEmail(String email) {
