@@ -2,7 +2,7 @@
 <resources>
 	<Resource id="ocs-jee-test" type="DataSource">
 		JdbcDriver	org.apache.derby.jdbc.EmbeddedDriver
-		JdbcUrl		jdbc:derby:ocs-jee-test.db;create=true
+		JdbcUrl		jdbc:derby:${catalina.base}/db/ocs-jee-test.db;create=true
 		UserName	ocsjeetest
 		Password	password
 		JtaManaged	true

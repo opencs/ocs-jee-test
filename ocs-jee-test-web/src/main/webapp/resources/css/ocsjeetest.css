@@ -1,5 +1,9 @@
 
+#listing {
+	width: 100%;
+	border-collapse: collapse;
+}
 
-table {
-	border-width: 1px;
+#listing th, #listing td {
+	border: 1px solid black;
 }

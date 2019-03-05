@@ -31,79 +31,71 @@
  */
 package br.com.opencs.hr.jee.web.jsf;
 
-import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map.Entry;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.opencs.hr.jee.core.dto.UserDTO;
-import br.com.opencs.hr.jee.core.services.interfaces.ServiceException;
-import br.com.opencs.hr.jee.core.services.interfaces.UserService;
-import br.com.opencs.hr.jee.core.validators.UserValidator;
-
-/**
- * 
- * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @version 2019.02.27
- */
-@ManagedBean(name="addUserBean")
+@ManagedBean(name="listSystemPropertiesBean")
 @ViewScoped
-public class AddUserBean extends BaseBean {
+public class ListSystemPropertiesBean extends BaseBean {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String name;
-	 
-	private String email;
-
-	@EJB
-	private UserService userService;
-	
-	
-	public String doClear() {
+	public static class SystemProperty implements Comparable<SystemProperty>{
+		private String name;
+		private String value;
 		
-		this.email = "";
-		this.name = "";
-		return null;
-	}
-	
-	public String doAdd() {
-		
-		if (!UserValidator.isValidEMail(this.getEmail())) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, "Invalid email.");
-			return null;
-		}
-		if (!UserValidator.isValidName(this.getName())) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, "Invalid name.");
-			return null;
+		public SystemProperty(String name, String value) {
+			super();
+			this.name = name;
+			this.value = value;
 		}
 		
-		UserDTO user = new UserDTO();
-		user.setName(getName());
-		user.setEmail(getEmail());
-		try {
-			userService.addUser(user);
-			this.doClear();
-			this.showMessage(FacesMessage.SEVERITY_INFO, "User added.");
-		} catch (ServiceException e) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, e.getError().name());
+		public String getName() {
+			return name;
 		}
-		return null;
+		
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public String getValue() {
+			return value;
+		}
+		
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+		@Override
+		public int compareTo(SystemProperty o) {
+			return this.getName().compareTo(o.getName());
+		}
 	}
 	
-	public String getName() {
-		return name;
+	private List<SystemProperty> properties;
+	
+	@PostConstruct
+	public void postConstruct() {
+		doRefresh();
+	}
+	
+	public void doRefresh() {
+		ArrayList<SystemProperty> props = new ArrayList<>();
+		
+		for (Entry<Object, Object> entry: System.getProperties().entrySet()) {
+			props.add(new SystemProperty(entry.getKey().toString(), entry.getValue().toString()));
+		}
+		Collections.sort(props);
+		this.properties = props;
 	}
 
-	public void setName(String name) {
-		this.name = name.trim();
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email.trim();
+	public List<SystemProperty> getProperties() {
+		return properties;
 	}
 }

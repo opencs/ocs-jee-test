@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet name="css/ocsjeetest.css"/>
-	<title>OpenCS JEE Test - List Users</title>
+	<title>OpenCS JEE Test - System Properties</title>
 </h:head>
 <h:body>
 	<h1>OpenCS JEE Test - List Users</h1>
@@ -15,26 +15,16 @@
 		<h:form id="form">
 			<table id="listing">
 				<tr>
-					<th>UID</th>
-					<th>Name</th>
-					<th>e-Mail</th>
-					<th>Creation date</th>
-					<th>Update date</th>
+					<th>Property</th>
+					<th>Value</th>
 				</tr>
-				<ui:repeat var="user" value="#{listUsersBean.users}">
+				<ui:repeat var="prop" value="#{listSystemPropertiesBean.properties}">
 					<tr>
-						<td><h:outputText value='#{user.userId}'/></td>
-						<td><h:outputText value='#{user.name}'/></td>
-						<td><h:outputText value='#{user.email}'/></td>
-						<td><h:outputText value='#{user.creationDate}'/></td>
-						<td><h:outputText value='#{user.updateDate}'/></td>
+						<td><h:outputText value='#{prop.name}'/></td>
+						<td><h:outputText value='#{prop.value}'/></td>
 					</tr>
 				</ui:repeat>
 			</table>
-			<h:panelGrid columns="1">
-				<h:commandButton id="backButton" value="Back" action="back"
-					immediate="true" />
-			</h:panelGrid>
 		</h:form>
 	</f:view>	
 </h:body>
