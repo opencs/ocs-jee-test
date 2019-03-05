@@ -10,11 +10,22 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>add-user</from-outcome>
-			<to-view-id>add-user.xtml</to-view-id>
+			<to-view-id>/add-user.xtml</to-view-id>
 		</navigation-case>
+			<navigation-case>
+			<from-outcome>list-users</from-outcome>
+			<to-view-id>/list-users.xtml</to-view-id>
+		</navigation-case>	
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/add-user.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/index.xtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/list-users.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>back</from-outcome>
 			<to-view-id>/index.xtml</to-view-id>
