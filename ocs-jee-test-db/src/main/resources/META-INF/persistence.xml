@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="ocs-jee-test" transaction-type="JTA">
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<jta-data-source>ocs-jee-test-ds</jta-data-source>
 		<class>br.com.opencs.hr.jee.db.entities.UserEntity</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>			
@@ -11,8 +12,6 @@
 			<property name="openjpa.jdbc.DBDictionary" value="derby"/>
 			<property name="openjpa.DataCacheTimeout" value="1000" />
 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode" value="database" />			
 		</properties>
 	</persistence-unit>
 </persistence>
