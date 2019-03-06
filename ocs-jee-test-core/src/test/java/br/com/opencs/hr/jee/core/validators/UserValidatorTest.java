@@ -29,52 +29,44 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.opencs.hr.jee.web.jsf;
+package br.com.opencs.hr.jee.core.validators;
 
-import java.util.List;
+import static org.junit.Assert.*;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import org.junit.Test;
 
-import br.com.opencs.hr.jee.core.dto.UserDTO;
-import br.com.opencs.hr.jee.core.services.interfaces.UserService;
+public class UserValidatorTest {
 
-/**
- * This class implements the listUsersBean managed beam.
- * 
- * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @version 2019.02.28
- */
-@ManagedBean(name="listUsersBean")
-@ViewScoped
-public class ListUsersBean extends BaseBean {
-
-	private static final long serialVersionUID = 1L;
-
-	@EJB
-	private UserService userService;
-	
-	private List<UserDTO> users;
-	
-	/**
-	 * Initializes the view.
-	 */
-	@PostConstruct
-	public void postConstrut() {
-		doUpdate();
-	}
-	
-	/**
-	 * Updates the user list.
-	 */
-	public void doUpdate() {
-		this.users = userService.listUsers();
+	@Test
+	public void testIsEmptyString() {
+		
+		assertTrue(UserValidator.isEmptyString(""));
+		assertTrue(UserValidator.isEmptyString(null));
+		assertFalse(UserValidator.isEmptyString(" "));
 	}
 
-	public List<UserDTO> getUsers() {
-		return users;
+	@Test
+	public void testIsValidEMail() {
+		
+		assertTrue(UserValidator.isValidEMail("ur@d"));
+		assertTrue(UserValidator.isValidEMail("user@domain"));
 	}
 
+	@Test
+	public void testIsValidName() {
+
+		assertTrue(UserValidator.isValidName("."));
+		assertTrue(UserValidator.isValidName(" . "));
+		assertTrue(UserValidator.isValidName("a"));
+		assertFalse(UserValidator.isValidName(" "));
+		
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < UserValidator.MAX_NAME_LENGTH; i++) {
+			sb.append('a');
+		}
+		assertTrue(UserValidator.isValidName(sb.toString()));
+
+		sb.append('a');
+		assertFalse(UserValidator.isValidName(sb.toString()));
+	}
 }

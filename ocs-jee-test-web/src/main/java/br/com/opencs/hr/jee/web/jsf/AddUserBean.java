@@ -42,6 +42,7 @@ import br.com.opencs.hr.jee.core.services.interfaces.UserService;
 import br.com.opencs.hr.jee.core.validators.UserValidator;
 
 /**
+ * Implementation of the addUserBean.
  * 
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
  * @version 2019.02.27
@@ -59,34 +60,43 @@ public class AddUserBean extends BaseBean {
 	@EJB
 	private UserService userService;
 	
-	
+	/**
+	 * Clears the fields.
+	 * 
+	 * @return The next action.
+	 */	
 	public String doClear() {
 		
 		this.email = "";
 		this.name = "";
 		return null;
 	}
-	
+
+	/**
+	 * Adds the new user.
+	 * 
+	 * @return The next action.
+	 */
 	public String doAdd() {
 		
 		if (!UserValidator.isValidEMail(this.getEmail())) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, "Invalid email.");
-			return null;
+			this.showMessage(FacesMessage.SEVERITY_ERROR, "form", "Invalid email.");
+			return null; 
 		}
 		if (!UserValidator.isValidName(this.getName())) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, "Invalid name.");
+			this.showMessage(FacesMessage.SEVERITY_ERROR, "form", "Invalid name.");
 			return null;
 		}
 		
-		UserDTO user = new UserDTO();
+		UserDTO user = new UserDTO(); 
 		user.setName(getName());
 		user.setEmail(getEmail());
 		try {
 			userService.addUser(user);
 			this.doClear();
-			this.showMessage(FacesMessage.SEVERITY_INFO, "User added.");
+			this.showMessage(FacesMessage.SEVERITY_INFO, "form", "User added.");
 		} catch (ServiceException e) {
-			this.showMessage(FacesMessage.SEVERITY_ERROR, e.getError().name());
+			this.showMessage(FacesMessage.SEVERITY_ERROR, "form", e.getError().name());
 		}
 		return null;
 	}

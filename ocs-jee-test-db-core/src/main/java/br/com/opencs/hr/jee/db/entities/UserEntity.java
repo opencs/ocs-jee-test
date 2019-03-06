@@ -31,7 +31,6 @@
  */
 package br.com.opencs.hr.jee.db.entities;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Cacheable;
@@ -76,7 +75,7 @@ public class UserEntity {
 	@Column(name="userid", nullable=false, updatable=false)
 	private long userId;
 	
-	@Column(name="email", nullable=false, unique=true, length=128, updatable=true)
+	@Column(name="email", nullable=false, unique=true, length=320, updatable=true)
 	private String email;
 	
 	@Column(name="name", nullable=false, unique=false, length=256, updatable=true)
@@ -89,6 +88,9 @@ public class UserEntity {
 	@Column(name="updatedate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
+	
+	@Column(name="passwdhash", nullable=true, unique=false, length=256, updatable=true)
+	private String passwordHash;
 	
 	@Version
 	@Column(name="version", nullable=false, unique=false)
@@ -140,5 +142,13 @@ public class UserEntity {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 }

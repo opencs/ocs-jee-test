@@ -12,13 +12,11 @@
 	<h1>OpenCS JEE Test - Add User</h1>
 	<f:view id="view">
 		<h:form id="form">
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
 				<h:outputText value='Name'/>
 				<h:inputText id="name" value="#{addUserBean.name}" required="true"/>
-				<h:messages for="name" />
 				<h:outputText value='Email'/>
 				<h:inputText id="email" value="#{addUserBean.email}" required="true"/>
-				<h:messages for="email" />
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<h:commandButton id="okButton" value="OK"
@@ -27,6 +25,8 @@
 				<h:commandButton id="cancelButton" value="Back" action="back"
 					immediate="true" />
 			</h:panelGrid>
+			<h:messages for="name" />
+			<h:messages for="email" />
 			<h:messages for="form" styleClass="messageBox" errorClass="errorMessage" infoClass="infoMessage" />
 		</h:form>
 	</f:view>

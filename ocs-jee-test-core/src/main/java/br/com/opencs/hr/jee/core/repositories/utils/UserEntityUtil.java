@@ -29,52 +29,60 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.opencs.hr.jee.web.jsf;
+package br.com.opencs.hr.jee.core.repositories.utils;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.util.Date;
 
 import br.com.opencs.hr.jee.core.dto.UserDTO;
-import br.com.opencs.hr.jee.core.services.interfaces.UserService;
+import br.com.opencs.hr.jee.db.entities.UserEntity;
 
 /**
- * This class implements the listUsersBean managed beam.
- * 
+ * This class implements the UserEntity tools.
+ *  
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @version 2019.02.28
+ * @version 2019.03.05
  */
-@ManagedBean(name="listUsersBean")
-@ViewScoped
-public class ListUsersBean extends BaseBean {
+public class UserEntityUtil {
 
-	private static final long serialVersionUID = 1L;
-
-	@EJB
-	private UserService userService;
-	
-	private List<UserDTO> users;
+	/**
+	 * Creates a new UserEntity. The creation date and the update date will be set
+	 * to the current time.
+	 *  
+	 * @param email The email.
+	 * @param name The name.
+	 * @param passwordHash The password hash. May be null.
+	 * @return The new entity instance.
+	 */
+	public static UserEntity createUserEntity(String email, String name, String passwordHash) {
+		UserEntity entity = new UserEntity();
+		Date now = new Date();
+		
+		entity.setName(name);
+		entity.setEmail(email);
+		entity.setCreationDate(now);
+		entity.setUpdateDate(now);
+		entity.setPasswordHash(passwordHash);
+		return entity;
+	}
 	
 	/**
-	 * Initializes the view.
+	 * Creates a new UserDTO from a given entity. 
+	 * 
+	 * @param src The source entity.
+	 * @param includePrivate A flag that indicates if private fields must 
+	 * be copied.
+	 * @return The new DTO.
 	 */
-	@PostConstruct
-	public void postConstrut() {
-		doUpdate();
+	public static UserDTO toDTO(UserEntity src, boolean includePrivate) {
+		UserDTO dto = new UserDTO();
+		
+		dto.setEmail(src.getEmail());
+		dto.setName(src.getName());
+		dto.setCreationDate((Date)src.getCreationDate().clone());
+		dto.setUpdateDate((Date)src.getUpdateDate().clone());
+		if (includePrivate) {
+			dto.setPasswordHash(src.getPasswordHash());
+		}
+		return dto;
 	}
-	
-	/**
-	 * Updates the user list.
-	 */
-	public void doUpdate() {
-		this.users = userService.listUsers();
-	}
-
-	public List<UserDTO> getUsers() {
-		return users;
-	}
-
 }

@@ -40,12 +40,21 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+/**
+ * This class implements the listSystemPropertiesBean managed beam.
+ * 
+ * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
+ * @version 2019.03.04
+ */
 @ManagedBean(name="listSystemPropertiesBean")
 @ViewScoped
 public class ListSystemPropertiesBean extends BaseBean {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	/**
+	 * Placeholder for the system property. 
+	 */
 	public static class SystemProperty implements Comparable<SystemProperty>{
 		private String name;
 		private String value;
@@ -80,11 +89,17 @@ public class ListSystemPropertiesBean extends BaseBean {
 	
 	private List<SystemProperty> properties;
 	
+	/**
+	 * Initializes the list.
+	 */
 	@PostConstruct
 	public void postConstruct() {
 		doRefresh();
 	}
 	
+	/**
+	 * Refreshes the system property list.
+	 */
 	public void doRefresh() {
 		ArrayList<SystemProperty> props = new ArrayList<>();
 		

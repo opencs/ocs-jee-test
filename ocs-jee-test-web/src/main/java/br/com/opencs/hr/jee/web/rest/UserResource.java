@@ -29,52 +29,51 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.opencs.hr.jee.web.jsf;
+package br.com.opencs.hr.jee.web.rest;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import br.com.opencs.hr.jee.core.dto.UserDTO;
 import br.com.opencs.hr.jee.core.services.interfaces.UserService;
 
 /**
- * This class implements the listUsersBean managed beam.
+ * Implementation of the REST UserResource. It is mapped in
+ * "/rest/user".
  * 
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @version 2019.02.28
+ * @version 2019.03.06
  */
-@ManagedBean(name="listUsersBean")
-@ViewScoped
-public class ListUsersBean extends BaseBean {
-
-	private static final long serialVersionUID = 1L;
+@Path("/rest/user")
+public class UserResource {
 
 	@EJB
 	private UserService userService;
 	
-	private List<UserDTO> users;
 	
-	/**
-	 * Initializes the view.
-	 */
-	@PostConstruct
-	public void postConstrut() {
-		doUpdate();
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<UserDTO> getList() {
+		return userService.listUsers();		
 	}
 	
-	/**
-	 * Updates the user list.
-	 */
-	public void doUpdate() {
-		this.users = userService.listUsers();
-	}
-
-	public List<UserDTO> getUsers() {
-		return users;
-	}
-
+	@GET
+	@Path("{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserDTO getUser(@PathParam("userId") long userId) {
+		UserDTO user; 
+		
+		// TODO Not implemented.
+		user = new UserDTO();
+		user.setEmail("Not implemented yet!");
+		user.setName("Not implemented yet!");
+		user.setUserId(userId);
+		return user;		
+	}	
 }

@@ -35,7 +35,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * This class is the DTO of the User.
+ * This class implements the DTO of the User.
  * 
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
  * @version 2019.02.24
@@ -53,6 +53,8 @@ public class UserDTO implements Serializable {
 	private Date creationDate;
 	
 	private Date updateDate;
+	
+	private String passwordHash;
 
 	public long getUserId() {
 		return userId;
@@ -92,5 +94,13 @@ public class UserDTO implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 }

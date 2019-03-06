@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 
 import br.com.opencs.hr.jee.core.dto.UserDTO;
 import br.com.opencs.hr.jee.core.repositories.UserRepository;
+import br.com.opencs.hr.jee.core.repositories.utils.UserEntityUtil;
 import br.com.opencs.hr.jee.core.services.interfaces.ServiceError;
 import br.com.opencs.hr.jee.core.services.interfaces.ServiceException;
 import br.com.opencs.hr.jee.core.services.interfaces.UserService;
@@ -57,17 +58,6 @@ public class UserServiceImpl implements UserService {
 	@EJB
 	private UserRepository userRepository;
 	
-	private UserDTO entityToDTO(UserEntity userEntity) {
-		UserDTO dto = new UserDTO();
-
-		dto.setUserId(userEntity.getUserId());
-		dto.setEmail(userEntity.getEmail());
-		dto.setName(userEntity.getName());
-		dto.setUpdateDate(userEntity.getUpdateDate());
-		dto.setCreationDate(userEntity.getCreationDate());
-		return dto;
-	}
-	
 	@Override
 	public UserDTO findUserByEmail(String email) {
 		
@@ -76,7 +66,7 @@ public class UserServiceImpl implements UserService {
 			logger.info("User with email %1$s not found.", email);
 			return null;
 		} else {
-			return entityToDTO(userEntity);
+			return UserEntityUtil.toDTO(userEntity, false);
 		}
 	}
 
@@ -98,11 +88,8 @@ public class UserServiceImpl implements UserService {
 			logger.info("Email %1$s already used.", user.getEmail());
 			throw new ServiceException(ServiceError.USER_EMAIL_ALREADY_USED);
 		} else {
-			userEntity = new UserEntity();
-			userEntity.setName(user.getName());
-			userEntity.setEmail(user.getEmail());
-			userEntity.setCreationDate(new Date());
-			userEntity.setUpdateDate(new Date());
+			userEntity = UserEntityUtil.createUserEntity(
+					user.getEmail(), user.getName(), null);
 			userRepository.persist(userEntity);
 			logger.info("User %1$s with email %2$s added with ID %3%d.", userEntity.getName(),
 					userEntity.getEmail(), userEntity.getUserId());
@@ -114,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		ArrayList<UserDTO> users = new ArrayList<UserDTO>();
 	
 		for (UserEntity userEntity: userRepository.listAll()) {
-			users.add(entityToDTO(userEntity));
+			users.add(UserEntityUtil.toDTO(userEntity, false));
 		}
 		return users;
 	}
