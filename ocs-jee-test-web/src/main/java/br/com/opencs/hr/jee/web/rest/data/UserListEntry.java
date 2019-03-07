@@ -29,60 +29,33 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package br.com.opencs.hr.jee.core.services.interfaces;
+package br.com.opencs.hr.jee.web.rest.data;
 
 import java.util.List;
 
-import javax.ejb.Local;
-
-import br.com.opencs.hr.jee.core.dto.UserDTO;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * This is the local interface of the UserService EJB.
- * 
+ * This class implements the model for a list of users.
+ *  
  * @author Fabio Jun Takada Chino <fjtc@users.noreply.github.com>
- * @since 2019.02.24
+ * @version 2019.03.06
  */
-@Local
-public interface UserService {
+@XmlRootElement(name="users")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class UserListEntry {
+	
+	@XmlElement
+	private List<UserEntry> users;
 
-	/**
-	 * Finds the user by his/her email.
-	 * @param email The email.
-	 * @return The user found or null if the user does not exist.
-	 */
-	public UserDTO findUserByEmail(String email);
-	
-	/**
-	 * Finds the user by its ID.
-	 * 
-	 * @param userId The user ID.
-	 * @return The user DTO or null if no user were found.
-	 */
-	public UserDTO findUserByID(long userId);
-	
-	/**
-	 * Adds a new user.
-	 * 
-	 * @param user The user data to be added.
-	 * @return The updated user DTO.
-	 * @exception ServiceException If the user could not be added.
-	 */
-	public UserDTO addUser(UserDTO user) throws ServiceException;
-	
-	/**
-	 * Lists all users inside the database.
-	 * 
-	 * @return A list of all users inside the database.
-	 */
-	public List<UserDTO> listUsers();
-	
-	/**
-	 * Updates a given user.
-	 * 
-	 * @param user The user to be updated.
-	 * @param newUserValues The new user data.
-	 * throws ServiceException If the user cannot be updated.
-	 */
-	public void updateUser(UserDTO user, UserDTO newUserValues) throws ServiceException;
+	public List<UserEntry> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserEntry> users) {
+		this.users = users;
+	}
 }

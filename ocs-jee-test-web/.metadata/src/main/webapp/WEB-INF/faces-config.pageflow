@@ -5,7 +5,7 @@
   <nodes xsi:type="pageflow:PFPage" name="index.xtml" x="338" y="562" id="pf15513144217446" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15513144217445 pf15513581616256" path="/index.xtml"/>
   <nodes xsi:type="pageflow:PFPage" name="add-user.xtml" id="pf15513581205542" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15513581205531" path="/add-user.xtml"/>
   <nodes xsi:type="pageflow:PFPage" name="list-users.xhtml" id="pf15513581616257" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15513581616256" path="/list-users.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="list-users.xtml" id="pf15513716596961" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15513716596950" path="/list-users.xtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="list-users.xtml" id="pf15513716596961" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15513716596950" path="/list-users.xtml"/>
   <links id="pf15513144217445" target="pf15513144217446" source="pf15513140545542" outcome="back"/>
   <links id="pf15513581205531" target="pf15513581205542" source="pf15513140545541" outcome="add-user"/>
   <links id="pf15513581616256" target="pf15513144217446" source="pf15513581616257" outcome="back"/>

@@ -92,9 +92,10 @@ public class AddUserBean extends BaseBean {
 		user.setName(getName());
 		user.setEmail(getEmail());
 		try {
-			userService.addUser(user);
+			UserDTO ret = userService.addUser(user);
 			this.doClear();
-			this.showMessage(FacesMessage.SEVERITY_INFO, "form", "User added.");
+			this.showMessage(FacesMessage.SEVERITY_INFO, "form", 
+					String.format("User added with userID %1$d.", ret.getUserId()));
 		} catch (ServiceException e) {
 			this.showMessage(FacesMessage.SEVERITY_ERROR, "form", e.getError().name());
 		}

@@ -69,9 +69,21 @@ public class UserServiceImpl implements UserService {
 			return UserEntityUtil.toDTO(userEntity, false);
 		}
 	}
+	
+	@Override
+	public UserDTO findUserByID(long userId) {
+
+		UserEntity userEntity = userRepository.find(userId);
+		if (userEntity == null) {
+			logger.info("User with id %1$d not found.", userId);
+			return null;
+		} else {
+			return UserEntityUtil.toDTO(userEntity, false);
+		}
+	}
 
 	@Override
-	public void addUser(UserDTO user) throws ServiceException {
+	public UserDTO addUser(UserDTO user) throws ServiceException {
 		
 		// Check user entity
 		if (!UserValidator.isValidName(user.getName()))  {
@@ -93,6 +105,8 @@ public class UserServiceImpl implements UserService {
 			userRepository.persist(userEntity);
 			logger.info("User %1$s with email %2$s added with ID %3%d.", userEntity.getName(),
 					userEntity.getEmail(), userEntity.getUserId());
+			user.setUserId(userEntity.getUserId());
+			return user;
 		}
 	}
 	
